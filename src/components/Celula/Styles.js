@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
+import Styles from '../Tabuleiro/Styles';
 
-export default styles = StyleSheet.create({
+export default Styles = StyleSheet.create({
     container: {
       width: 100,
       heigth: 100,

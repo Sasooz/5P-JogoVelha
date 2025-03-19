@@ -6,8 +6,6 @@ import Tabuleiro from './src/components/Tabuleiro/Tabuleiro';
 export default function App() {
   return (
     <View style={styles.container}>
-    
-    <Tabuleiro />
 
 
       <StatusBar style="auto" />
