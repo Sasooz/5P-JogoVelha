@@ -3,33 +3,48 @@ import Celula from '../Celula/Celula';
 import styles from './Styles';
 
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Tabuleiro() {
 
-  const [tabuleiroJogo , setTabuleiroJogo] = useState(Array(9).fill('--'))
+  const [tabuleiro, setTabuleiro] = useState(Array(9).fill('--'));
+  const [jogadorX, setJogadorX] = useState(true);
 
-  function fazerJogada(indice) {
+  function fazJogada(index) {
+    if (tabuleiro[index] !== '--') return;
 
-   let tabuleiroAux = [...tabuleiroJogo];
-   tabuleiroAux[indice] = 'X'
-   setTabuleiroJogo(tabuleiroAux);
+    let letra = jogadorX ? 'X' : 'O';
+    const novoTabuleiro = [...tabuleiro];
+    novoTabuleiro[index] = letra;
+
+    setTabuleiro(novoTabuleiro);
+    setJogadorX(!jogadorX);
   }
-  
+
+  function jogadaMaquina() {
+    if (jogadorX) return;
+
+    const casasVazias = tabuleiro
+      .map((valor, index) => (valor === '--' ? index : null))
+      .filter((v) => v !== null);
+
+    if (casasVazias.length > 0) {
+      const escolha = casasVazias[Math.floor(Math.random() * casasVazias.length)];
+      fazJogada(escolha);
+    }
+  }
+
+  useEffect(() => {
+    if (!jogadorX) {
+      jogadaMaquina();
+    }
+  }, [jogadorX]);
 
   return (
-
     <View style={styles.container}>
-        <Celula valor={tabuleiroJogo[0]} onPress={() => fazerJogada(0)} />
-        <Celula valor={tabuleiroJogo[1]} onPress={() => fazerJogada(1)} />
-        <Celula valor={tabuleiroJogo[2]} onPress={() => fazerJogada(2)} />
-        <Celula valor={tabuleiroJogo[3]} onPress={() => fazerJogada(3)} />
-        <Celula valor={tabuleiroJogo[4]} onPress={() => fazerJogada(4)} />
-        <Celula valor={tabuleiroJogo[5]} onPress={() => fazerJogada(5)} />
-        <Celula valor={tabuleiroJogo[6]} onPress={() => fazerJogada(6)} />
-        <Celula valor={tabuleiroJogo[7]} onPress={() => fazerJogada(7)} />
-        <Celula valor={tabuleiroJogo[8]} onPress={() => fazerJogada(8)} />
-
+      {tabuleiro.map((valor, index) => (
+        <Celula key={index} value={valor} onPress={() => fazJogada(index)} />
+      ))}
     </View>
   );
 }

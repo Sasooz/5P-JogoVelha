@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export default styles = StyleSheet.create({
+export default Styles = StyleSheet.create({
     container: {
       flexDirection: 'row',
       flexWrap: 'wrap',
