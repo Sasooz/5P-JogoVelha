@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { View, Alert, Button, TouchableOpacity, Text } from "react-native";
+import { View, Alert, TouchableOpacity, Text } from "react-native";
 import Celula from "../Celula/Celula";
 import styles from "./Styles";
 
-export default function Tabuleiro() {
+export default function Tabuleiro({ contraMaquina = false }) {
   const [tabuleiro, setTabuleiro] = useState(Array(9).fill("--"));
   const [jogadorX, setJogadorX] = useState(true);
   const [vencedor, setVencedor] = useState(null);
@@ -67,10 +67,10 @@ export default function Tabuleiro() {
   }, [tabuleiro]);
 
   useEffect(() => {
-    if (!jogadorX) {
+    if (!jogadorX && contraMaquina && !vencedor) {
       jogadaMaquina();
     }
-  }, [jogadorX]);
+  }, [jogadorX, contraMaquina, vencedor]);
 
   function reiniciarJogo() {
     setTabuleiro(Array(9).fill("--"));
@@ -80,9 +80,11 @@ export default function Tabuleiro() {
 
   return (
     <View style={styles.container}>
-      {tabuleiro.map((valor, index) => (
-        <Celula key={index} value={valor} onPress={() => fazJogada(index)} />
-      ))}
+      <View style={styles.tabuleiro}>
+        {tabuleiro.map((valor, index) => (
+          <Celula key={index} value={valor} onPress={() => fazJogada(index)} />
+        ))}
+      </View>
       <TouchableOpacity style={styles.botao} onPress={reiniciarJogo}>
         <Text style={styles.botaoTexto}>Reiniciar Jogo</Text>
       </TouchableOpacity>

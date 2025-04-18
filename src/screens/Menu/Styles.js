@@ -2,19 +2,14 @@ import { StyleSheet } from "react-native";
 
 export default Styles = StyleSheet.create({
   container: {
-    flex: 1, // Ocupa a tela toda
-    justifyContent: "center", // Centraliza verticalmente
-    alignItems: "center", // Centraliza horizontalmente
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 20,
+    paddingHorizontal: 40,
   },
-
-  tabuleiro: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    width: 300,
-    marginBottom: 30,
-  },
-
-  botao: {
+  button: {
+    marginTop: 20,
     backgroundColor: "#8e44ad",
     paddingVertical: 12,
     paddingHorizontal: 24,
@@ -26,8 +21,7 @@ export default Styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 5,
   },
-
-  botaoTexto: {
+  buttonText: {
     color: "#fff",
     fontSize: 18,
     fontWeight: "bold",
